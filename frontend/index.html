@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherApp - Météo</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://img.icons8.com/color/96/000000/partly-cloudy-day.png">
+</head>
+<body>
+    <div class="container">
+        <!-- En-tête -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-cloud-sun"></i>
+                <h1>WeatherApp</h1>
+            </div>
+            <div class="current-date" id="currentDate">
+                Chargement...
+		Veuille patientez
+            </div>
+        </header>
+
+        <!-- Section recherche -->
+        <div class="search-section">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="cityInput" placeholder="Entrez le nom d'une ville...">
+                <button id="searchBtn">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            <button id="locationBtn" class="btn-location">
+                <i class="fas fa-location-dot"></i> Ma position
+            </button>
+        </div>
+
+        <!-- Conteneur principal météo -->
+        <div id="weatherContainer" class="weather-container hidden">
+            <!-- Informations principales -->
+            <div class="main-info">
+                <div class="city-info">
+                    <h2 id="cityName">--</h2>
+                    <p class="country" id="country">--</p>
+                </div>
+                
+                <div class="temperature-section">
+                    <div class="current-temp">
+                        <span id="currentTemp">--</span>
+                        <span class="unit">°C</span>
+                    </div>
+                    <p class="weather-description" id="weatherDescription">--</p>
+                </div>
+
+                <!-- Icône météo dynamique -->
+                <div class="weather-icon" id="weatherIcon">
+                    <i class="fas fa-sun"></i>
+                </div>
+            </div>
+
+            <!-- Détails météo -->
+            <div class="details-grid">
+                <div class="detail-card">
+                    <i class="fas fa-temperature-half"></i>
+                    <div>
+                        <p class="label">Ressenti</p>
+                        <p class="value" id="feelsLike">--°C</p>
+                    </div>
+                </div>
+                
+                <div class="detail-card">
+                    <i class="fas fa-wind"></i>
+                    <div>
+                        <p class="label">Vent</p>
+                        <p class="value" id="windSpeed">-- km/h</p>
+                    </div>
+                </div>
+                
+                <div class="detail-card">
+                    <i class="fas fa-droplet"></i>
+                    <div>
+                        <p class="label">Humidité</p>
+                        <p class="value" id="humidity">--%</p>
+                    </div>
+                </div>
+                
+                <div class="detail-card">
+                    <i class="fas fa-gauge"></i>
+                    <div>
+                        <p class="label">Pression</p>
+                        <p class="value" id="pressure">-- hPa</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lever et coucher du soleil -->
+            <div class="sun-info">
+                <div class="sun-card">
+                    <i class="fas fa-sunrise"></i>
+                    <div>
+                        <p>Lever du soleil</p>
+                        <h4 id="sunrise">--:--</h4>
+                    </div>
+                </div>
+                <div class="sun-card">
+                    <i class="fas fa-sunset"></i>
+                    <div>
+                        <p>Coucher du soleil</p>
+                        <h4 id="sunset">--:--</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prévisions -->
+            <div class="forecast-section">
+                <h3><i class="fas fa-calendar-days"></i> Prévisions 5 jours</h3>
+                <div class="forecast-cards" id="forecastContainer">
+                    <!-- Les cartes de prévisions seront ajoutées ici par JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Message d'erreur -->
+        <div id="errorMessage" class="error-message hidden">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p id="errorText">Erreur de chargemen !!t</p>
+        </div>
+
+        <!-- Chargement -->
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Chargement des données météo...</p>
+        </div>
+
+        <!-- Historique des recherches -->
+        <div class="history-section">
+            <h3><i class="fas fa-history"></i> Recherches récentes</h3>
+            <div class="history-list" id="historyList">
+                <!-- L'historique sera ajouté ici -->
+            </div>
+        </div>
+
+        <!-- Pied de page -->
+        <footer class="footer">
+            <p>Développé avec <i class="fas fa-heart"></i> par WeatherApp</p>
+            <p class="api-credit">Données fournies par <a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a></p>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/app.js"></script>
+</body>
+</html>

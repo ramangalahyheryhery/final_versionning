@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # Service backend
+  backend:
+    image: weather-backend:latest
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - API_KEY=${API_KEY}
+    healthcheck:
+      test: ["CMD", "node", "-e", "const http = require('http'); const req = http.request({ host: 'localhost', port: 3000, path: '/api/weather/Paris', timeout: 2000 }, (res) => { process.exit(res.statusCode === 200 ? 0 : 1); }); req.on('error', () => { process.exit(1); }); req.end();"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    networks:
+      - weather-network
+    restart: unless-stopped
+
+  # Service frontend
+  frontend:
+    image: weather-frontend:latest
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      - BACKEND_URL=http://backend:3000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    networks:
+      - weather-network
+    restart: unless-stopped
+
+
+# Réseau Docker
+networks:
+  weather-network:
+    driver: bridge
+    name: weather-network
