@@ -3,12 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
         stage('Build & Run & Test') {
             steps {
                 sh 'chmod +x ci-test.sh'
@@ -22,10 +16,11 @@ pipeline {
             sh 'docker-compose down || true'
         }
         success {
-            echo 'PIPELINE SUCCESS'
+            echo '✅ PIPELINE SUCCESS'
         }
         failure {
-            echo 'PIPELINE FAILED'
+            echo '❌ PIPELINE FAILED'
         }
     }
 }
+
