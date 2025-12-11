@@ -19,10 +19,8 @@ EXPOSE 3000
 
 ENV NODE_ENV=production
 ENV PORT=3000
-
-# Vérification de santé
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "const http = require('http'); const options = { host: 'localhost', port: 3000, path: '/api/weather/Paris', timeout: 2000 }; const req = http.request(options, (res) => { process.exit(res.statusCode === 200 ? 0 : 1); }); req.on('error', () => { process.exit(1); }); req.end();"
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+  CMD wget -qO- http://localhost:3000/health || exit 1
 
 # Démarrer l'application
 CMD ["node", "server.js"]

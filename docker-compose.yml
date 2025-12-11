@@ -15,11 +15,12 @@ services:
       - PORT=3000
       - API_KEY=${API_KEY}
     healthcheck:
-      test: ["CMD", "node", "-e", "const http = require('http'); const req = http.request({ host: 'localhost', port: 3000, path: '/api/weather/Paris', timeout: 2000 }, (res) => { process.exit(res.statusCode === 200 ? 0 : 1); }); req.on('error', () => { process.exit(1); }); req.end();"]
-      interval: 30s
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 10s
       timeout: 3s
-      retries: 3
+      retries: 5
       start_period: 5s
+
     networks:
       - weather-network
     restart: unless-stopped
