@@ -1,15 +1,14 @@
 FROM node:18-alpine
 WORKDIR /usr/src/app
 
-# Copier package.json et package-lock.json
 COPY package*.json ./
 
-# Installer les dépendances
+# Installation dépendances
 RUN npm ci --only=production
 
 COPY . .
 
-# Créer un utilisateur non-root pour la sécurité
+#(user)non-root pour la sécurité
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nodejs -u 1001
 

@@ -14,5 +14,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD wget -q -O - http://localhost:3000/ || exit 1
 
 
-# Démarrer Nginx
 CMD ["nginx", "-g", "daemon off;"]

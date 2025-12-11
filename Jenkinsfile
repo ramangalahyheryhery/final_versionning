@@ -16,10 +16,10 @@ pipeline {
             sh 'docker-compose down || true'
         }
         success {
-            echo '✅ PIPELINE SUCCESS'
+            echo 'PIPELINE SUCCESS'
         }
         failure {
-            echo '❌ PIPELINE FAILED'
+            echo 'PIPELINE FAILED'
         }
     }
 }
